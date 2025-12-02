@@ -1,0 +1,38 @@
+# 🚨 IMPORTANT: Create Your .env.local File
+# Copy this content to a NEW file called .env.local in the root directory
+
+# =============================================================================
+# Supabase Configuration
+# Get these from: https://supabase.com/dashboard/project/_/settings/api
+# =============================================================================
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+
+# =============================================================================
+# OpenAI Configuration (Required for ChatGPT)
+# Get your API key from: https://platform.openai.com/api-keys
+# =============================================================================
+OPENAI_API_KEY=sk-your-openai-api-key-here
+
+# =============================================================================
+# Cron Secret (for scanner endpoint security)
+# Generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+# =============================================================================
+CRON_SECRET=your-random-secret-here
+
+# =============================================================================
+# SETUP INSTRUCTIONS:
+# =============================================================================
+# 1. Create a file named .env.local in the root directory (same folder as this file)
+# 2. Copy ALL the content above into .env.local
+# 3. Replace each value with your actual credentials:
+#    - Supabase: Get from https://supabase.com/dashboard
+#    - OpenAI: Get from https://platform.openai.com/api-keys
+#    - CRON_SECRET: Generate with the command above
+# 4. Save the file
+# 5. Restart your dev server: npm run dev
+#
+# The .env.local file is ignored by git, so your secrets stay safe!
+# =============================================================================
+
