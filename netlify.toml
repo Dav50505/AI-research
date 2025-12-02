@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+  # Tell Netlify these are expected environment variables
+  # Actual values are set in Netlify UI, not in code
+  SECRETS_SCAN_OMIT_KEYS = "CRON_SECRET,DB_PASSWORD,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SUPABASE_URL,OPENAI_API_KEY,SUPABASE_SERVICE_ROLE_KEY"
+

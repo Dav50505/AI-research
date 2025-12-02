@@ -9,9 +9,9 @@ export async function POST(request: NextRequest) {
   try {
     // Check for API key
     if (!process.env.OPENAI_API_KEY) {
-      console.error('[Chat] Missing OPENAI_API_KEY environment variable');
+      console.error('[Chat] Missing API key configuration');
       return NextResponse.json(
-        { error: 'Server configuration error: Missing OpenAI API key' },
+        { error: 'Server configuration error: Missing API key' },
         { status: 500 }
       );
     }
