@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'AI Dev Radar - Track the Latest in AI Coding, ML Learning & AI Models',
-  description: 'Stay up to date with the latest AI coding tools, machine learning resources, and AI model releases. Updated every 12 hours.',
+  description: 'Stay up to date with the latest AI coding tools, machine learning resources, and AI model releases. Updated every 2 hours.',
 };
 
 export default function RootLayout({
@@ -49,7 +49,7 @@ export default function RootLayout({
           <footer className="border-t mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                AI Dev Radar • Tracking AI coding tools, ML resources, and AI models • Updated every 12 hours
+                AI Dev Radar • Tracking AI coding tools, ML resources, and AI models • Updated every 2 hours
               </p>
             </div>
           </footer>
@@ -58,4 +58,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

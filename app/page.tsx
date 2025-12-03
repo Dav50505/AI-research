@@ -10,7 +10,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
           Track the latest AI coding tools, machine learning resources, and AI model releases.
-          Updated automatically every 12 hours.
+          Updated automatically every 2 hours.
         </p>
         <div className="flex gap-4 justify-center">
           <Link
@@ -87,7 +87,7 @@ export default function HomePage() {
             <div className="text-4xl mb-3">🔍</div>
             <h3 className="font-bold mb-2">1. Automated Scanning</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Our AI scans the web every 12 hours for new developments in AI coding, 
+              Our AI scans the web every 2 hours for new developments in AI coding, 
               ML learning, and AI models.
             </p>
           </div>
@@ -134,4 +134,5 @@ export default function HomePage() {
     </div>
   );
 }
+
 

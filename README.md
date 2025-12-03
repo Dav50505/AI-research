@@ -6,13 +6,13 @@
 2. **Machine Learning & AI Learning Resources**
 3. **AI Models, Frameworks, and Platforms**
 
-The app runs an automated scanner every 12 hours to collect new information and stores it in a Supabase database. Users can view the latest updates or chat with an AI assistant to ask questions.
+The app runs an automated scanner every 2 hours to collect new information and stores it in a Supabase database. Users can view the latest updates or chat with an AI assistant to ask questions.
 
 ---
 
 ## 🚀 Features
 
-- ✅ **Automated scanning** every 12 hours via Vercel Cron
+- ✅ **Automated scanning** every 2 hours via Vercel Cron
 - ✅ **Latest Updates page** with organized, filterable content
 - ✅ **AI Chat Assistant** for answering questions about recent developments
 - ✅ **Beautiful, responsive UI** with dark mode support
@@ -163,7 +163,7 @@ Vercel Cron is configured in `vercel.json`:
 URL: https://your-app.vercel.app/api/scan
 Method: POST
 Headers: Authorization: Bearer YOUR_CRON_SECRET
-Schedule: Every 12 hours
+Schedule: Every 2 hours (`0 */2 * * *`)
 ```
 
 ---
@@ -354,4 +354,5 @@ MIT License - feel free to use this for your own projects!
 If you run into issues or have questions, please open an issue on GitHub.
 
 Happy tracking! 🚀
+
 
