@@ -105,3 +105,4 @@ Check the terminal for error messages. Common issues:
 **Once you create `.env.local` with your OpenAI key, the chat will work immediately!** 🚀
 
 
+

@@ -8,25 +8,63 @@ export default function LatestPage() {
   const [data, setData] = useState<DatabaseScannerResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
+
+  const fetchLatest = async () => {
+    try {
+      const response = await fetch('/api/latest');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const result = await response.json();
+      setData(result);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchLatest() {
-      try {
-        const response = await fetch('/api/latest');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setLoading(false);
-      }
-    }
-
     fetchLatest();
   }, []);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    setRefreshMessage(null);
+    
+    try {
+      const response = await fetch('/api/refresh', {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to refresh');
+      }
+
+      const result = await response.json();
+      
+      setRefreshMessage(
+        `✅ Successfully refreshed! Found ${result.stats.coding_tools} coding tools, ${result.stats.ml_resources} ML resources, ${result.stats.ai_models} AI models, and ${result.stats.trends} trends.`
+      );
+
+      // Refresh the data after a short delay
+      setTimeout(() => {
+        fetchLatest();
+      }, 1000);
+    } catch (err) {
+      setRefreshMessage(
+        `❌ Error: ${err instanceof Error ? err.message : 'Failed to refresh'}`
+      );
+    } finally {
+      setRefreshing(false);
+      // Clear message after 5 seconds
+      setTimeout(() => setRefreshMessage(null), 5000);
+    }
+  };
 
   if (loading) {
     return (
@@ -60,13 +98,49 @@ export default function LatestPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Latest Updates</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Last updated: {format(lastUpdate, 'PPpp')}
-        </p>
-        <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
-          Focusing on: {data.run_metadata.time_window_focus}
-        </p>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Latest Updates</h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Last updated: {format(lastUpdate, 'PPpp')}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+              Focusing on: {data.run_metadata.time_window_focus}
+            </p>
+          </div>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-lg font-medium hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {refreshing ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
+                <span>Scanning...</span>
+              </>
+            ) : (
+              <>
+                <span>🔄</span>
+                <span>Refresh Search</span>
+              </>
+            )}
+          </button>
+        </div>
+        {refreshMessage && (
+          <div className={`mt-4 p-4 rounded-lg ${
+            refreshMessage.startsWith('✅')
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+          }`}>
+            <p className={`text-sm ${
+              refreshMessage.startsWith('✅')
+                ? 'text-green-900 dark:text-green-300'
+                : 'text-red-900 dark:text-red-300'
+            }`}>
+              {refreshMessage}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Coding Tools */}
@@ -275,5 +349,6 @@ export default function LatestPage() {
     </div>
   );
 }
+
 
 

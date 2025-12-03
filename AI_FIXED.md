@@ -123,3 +123,4 @@ Once `.env.local` is set up:
 **The chat works with JUST the OpenAI key - you don't need Supabase to test it!** 🚀
 
 
+

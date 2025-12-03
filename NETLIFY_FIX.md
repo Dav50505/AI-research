@@ -64,3 +64,4 @@ After deploying, check:
 The `netlify.toml` file I created helps, but the **SECRETS_SCAN_OMIT_KEYS** environment variable in Netlify UI is the key fix!
 
 
+
